@@ -1,8 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { RootStackProps } from "./types";
-import  SignIn  from "./../screens/SIgnIn/SignIn";
-import  Signup  from "../screens/Signup/Signup";
+import SignIn from "./../screens/SIgnIn/SignIn";
+import Signup from "../screens/Signup/Signup";
 
 const Stack = createStackNavigator<RootStackProps>();
 
@@ -19,6 +19,7 @@ const AppNavigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
+        headerTitleAlign: "center",
         headerStyle: { backgroundColor: "#2C6BED" },
         headerTitleStyle: { color: "white" },
         headerTintColor: "white",

@@ -4,8 +4,13 @@ import { Button, Image, Input } from "react-native-elements";
 import { Formik } from "formik";
 import styles from "./style";
 import * as yup from "yup";
+import { useNavigation } from "@react-navigation/native";
+import { SignupScreenProps } from "./types";
+import { ScrollView } from "react-native-gesture-handler";
 
 const SignIn = () => {
+  const navigation = useNavigation<SignupScreenProps>();
+
   const loginValidationSchema = yup.object().shape({
     email: yup
       .string()
@@ -22,64 +27,67 @@ const SignIn = () => {
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.logincontainer}>
-      <Image
-        source={require("../../assets/logo.png")}
-        style={{ height: 100, width: 100 }}
-      />
+      
+        <Image
+          source={require("../../assets/logo.png")}
+          style={{ height: 100, width: 100 }}
+        />
 
-      <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
-        validationSchema={loginValidationSchema}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          isValid,
-        }) => (
-          <>
-            <View style={styles.inputContainer}>
-              <Input
-                autoFocus
-                placeholder="Email"
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                value={values.email}
-                keyboardType="email-address"
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          onSubmit={(values) => console.log(values)}
+          validationSchema={loginValidationSchema}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            isValid,
+          }) => (
+            <>
+              <View style={styles.inputContainer}>
+                <Input
+                  autoFocus
+                  placeholder="Email"
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                  keyboardType="email-address"
+                />
+                {errors.email && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                    {errors.email}
+                  </Text>
+                )}
+                <Input
+                  placeholder="Password"
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                  secureTextEntry
+                />
+                {errors.password && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                    {errors.password}
+                  </Text>
+                )}
+              </View>
+              <Button
+                /* onPress={handleSubmit} */ title="Login"
+                containerStyle={styles.button}
               />
-              {errors.email && (
-                <Text style={{ fontSize: 10, color: "red" }}>
-                  {errors.email}
-                </Text>
-              )}
-              <Input
-                placeholder="Password"
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-                secureTextEntry
-              />
-              {errors.password && (
-                <Text style={{ fontSize: 10, color: "red" }}>
-                  {errors.password}
-                </Text>
-              )}
-            </View>
-            <Button
-              /* onPress={handleSubmit} */ title="Login"
-              containerStyle={styles.button}
-            />
 
-            <Button
-              /* onPress={handleSubmit} */ title="Register"
-              containerStyle={styles.button}
-            />
-          </>
-        )}
-      </Formik>
+              <Button
+                onPress={() => navigation.navigate("SignUp")}
+                title="Register"
+                containerStyle={styles.button}
+              />
+            </>
+          )}
+        </Formik>
+      
     </KeyboardAvoidingView>
   );
 };
