@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import { SignupScreenProps } from "./types";
 import { ScrollView } from "react-native-gesture-handler";
+import { StatusBar } from "expo-status-bar";
 
 const SignIn = () => {
   const navigation = useNavigation<SignupScreenProps>();
@@ -27,67 +28,67 @@ const SignIn = () => {
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.logincontainer}>
-      
-        <Image
-          source={require("../../assets/logo.png")}
-          style={{ height: 100, width: 100 }}
-        />
+      <StatusBar style="light" />
 
-        <Formik
-          initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
-          validationSchema={loginValidationSchema}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            isValid,
-          }) => (
-            <>
-              <View style={styles.inputContainer}>
-                <Input
-                  autoFocus
-                  placeholder="Email"
-                  onChangeText={handleChange("email")}
-                  onBlur={handleBlur("email")}
-                  value={values.email}
-                  keyboardType="email-address"
-                />
-                {errors.email && (
-                  <Text style={{ fontSize: 10, color: "red" }}>
-                    {errors.email}
-                  </Text>
-                )}
-                <Input
-                  placeholder="Password"
-                  onChangeText={handleChange("password")}
-                  onBlur={handleBlur("password")}
-                  value={values.password}
-                  secureTextEntry
-                />
-                {errors.password && (
-                  <Text style={{ fontSize: 10, color: "red" }}>
-                    {errors.password}
-                  </Text>
-                )}
-              </View>
-              <Button
-                /* onPress={handleSubmit} */ title="Login"
-                containerStyle={styles.button}
-              />
+      <Image
+        source={require("../../assets/logo.png")}
+        style={{ height: 100, width: 100 }}
+      />
 
-              <Button
-                onPress={() => navigation.navigate("SignUp")}
-                title="Register"
-                containerStyle={styles.button}
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={(values) => console.log(values)}
+        validationSchema={loginValidationSchema}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          isValid,
+        }) => (
+          <>
+            <View style={styles.inputContainer}>
+              <Input
+                autoFocus
+                placeholder="Email"
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                keyboardType="email-address"
               />
-            </>
-          )}
-        </Formik>
-      
+              {errors.email && (
+                <Text style={{ fontSize: 10, color: "red" }}>
+                  {errors.email}
+                </Text>
+              )}
+              <Input
+                placeholder="Password"
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+                value={values.password}
+                secureTextEntry
+              />
+              {errors.password && (
+                <Text style={{ fontSize: 10, color: "red" }}>
+                  {errors.password}
+                </Text>
+              )}
+            </View>
+            <Button
+              /* onPress={handleSubmit} */ title="Login"
+              containerStyle={styles.button}
+            />
+
+            <Button
+              onPress={() => navigation.navigate("SignUp")}
+              title="Register"
+              containerStyle={styles.button}
+            />
+          </>
+        )}
+      </Formik>
     </KeyboardAvoidingView>
   );
 };
